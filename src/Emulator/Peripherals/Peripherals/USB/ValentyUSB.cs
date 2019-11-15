@@ -215,7 +215,7 @@ namespace Antmicro.Renode.Peripherals.USB
 
             this.Log(LogLevel.Noisy, "Setup packet handled");
 #if DEBUG_PACKETS
-            this.Log(LogLevel.Noisy, "Response bytes: [{0}]", Misc.PrettyPrintCollection(slaveToMasterBuffer, b => b.ToString("X")));
+            this.Log(LogLevel.Noisy, "Response bytes: [{0}]", Misc.PrettyPrintCollectionHex(slaveToMasterBuffer));
 #endif
             slaveToMasterBufferVirtualBase = 0;
 
@@ -344,7 +344,7 @@ namespace Antmicro.Renode.Peripherals.USB
 
             var packetBytes = Packet.Encode(packet);
 #if DEBUG_PACKETS
-            this.Log(LogLevel.Noisy, "Setup packet bytes: [{0}]", Misc.PrettyPrintCollection(packetBytes, b => b.ToString("X")));
+            this.Log(LogLevel.Noisy, "Setup packet bytes: [{0}]", Misc.PrettyPrintCollectionHex(packetBytes));
 #endif
             EnqueueDataFromMaster(packetBytes);
 
