@@ -33,7 +33,7 @@ namespace Antmicro.Renode.Peripherals.DMA
         {
             get
             {
-                return DOVER_LEDS * Led.bytes_per_led;
+                return 4096; //DOVER_LEDS * Led.bytes_per_led;
             }
         }
 
@@ -46,7 +46,9 @@ namespace Antmicro.Renode.Peripherals.DMA
             led = (uint)offset / Led.bytes_per_led;
             regdex = (uint)offset - (led * Led.bytes_per_led);
             
-            if (led > DOVER_LEDS)
+            this.Log(LogLevel.Debug, "Read LED 0x{0:X} led:{1} off:0x{2:X}", offset, led, regdex);
+            
+            if (led >= DOVER_LEDS)
             {
                 this.Log(LogLevel.Warning, "Invalid led {0}", led);
                 return 0;
@@ -71,7 +73,9 @@ namespace Antmicro.Renode.Peripherals.DMA
             led = (uint)offset / Led.bytes_per_led;
             regdex = (uint)offset - (led * Led.bytes_per_led);
             
-            if (led > DOVER_LEDS)
+            this.Log(LogLevel.Debug, "Write LED 0x{0:X} led:{1} off:0x{2:X}", offset, led, regdex);
+
+            if (led >= DOVER_LEDS)
             {
                 this.Log(LogLevel.Warning, "Invalid led {0}", led);
                 return;

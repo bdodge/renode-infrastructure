@@ -49,8 +49,10 @@ namespace Antmicro.Renode.Peripherals.DMA
             
             channel = (uint)offset / Channel.bytes_per_channel;
             regdex = (uint)offset - (channel * Channel.bytes_per_channel);
+
+            this.Log(LogLevel.Debug, "Read DMA 0x{0:X} chan:{1} reg:0x{2:X}", offset, channel, regdex);
             
-            if (channel > DOVER_DMA_CHANNELS)
+            if (channel >= DOVER_DMA_CHANNELS)
             {
                 this.Log(LogLevel.Warning, "Invalid channel {0}", channel);
                 return 0;
@@ -83,7 +85,9 @@ namespace Antmicro.Renode.Peripherals.DMA
             channel = (uint)offset / Channel.bytes_per_channel;
             regdex = (uint)offset - (channel * Channel.bytes_per_channel);
             
-            if (channel > DOVER_DMA_CHANNELS)
+            this.Log(LogLevel.Debug, "Write DMA 0x{0:X} chan:{1} reg:0x{2:X}", offset, channel, regdex);
+
+            if (channel >= DOVER_DMA_CHANNELS)
             {
                 this.Log(LogLevel.Warning, "Invalid channel {0}", channel);
                 return;
